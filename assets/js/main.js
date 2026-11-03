@@ -733,10 +733,32 @@
         };
 
         window.setEventIndex = function(index) {
-            if(index >= 0 && index < window.allEvents.length) {
-                window.currentEventIndex = index;
+            if (index < 0 || index >= window.allEvents.length) return;
+            window.currentEventIndex = index;
+
+            const container = document.getElementById('eventCarouselContainer');
+            const cards = container ? container.querySelectorAll('.event-card') : [];
+            if (cards.length !== window.allEvents.length) {
                 window.renderEventsCarousel();
+                return;
             }
+
+            // Не пересоздаём DOM, а только меняем классы позиции — тогда работает CSS-анимация
+            const positions = ['slide-center', 'slide-left', 'slide-right', 'slide-hidden-left', 'slide-hidden-right'];
+            cards.forEach((card, i) => {
+                let cls;
+                if (i === index) cls = 'slide-center';
+                else if (i === index - 1) cls = 'slide-left';
+                else if (i === index + 1) cls = 'slide-right';
+                else if (i < index) cls = 'slide-hidden-left';
+                else cls = 'slide-hidden-right';
+                card.classList.remove(...positions);
+                card.classList.add(cls);
+            });
+
+            const btns = container.querySelectorAll('.carousel-controls button');
+            if (btns[0]) btns[0].disabled = index === 0;
+            if (btns[1]) btns[1].disabled = index === window.allEvents.length - 1;
         };
 
         window.changeEventIndex = function(dir) {
