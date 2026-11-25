@@ -8,7 +8,7 @@
 
     var TEXT_SEL = '.page-head h1, .hero h1, .section-title, .block-head h2, .join-text h2, .cta-band h3, .hero-statement';
     var BLOCK_SEL = [
-        '.lead', '.block-lead', '.hero-features', '.hero-btn-group', '.hero-logos-container',
+        '.lead', '.block-lead', '.hero-btn-group', '.hero-logos-container',
         '.fact', '.cell', '.step', '.spec-row', '.feature-item', '.faq-item', '.faq-aside',
         '.cta-band', '.join-container', '.note', '.about-photo', '.livemap-legend',
         '.roster-sidebar', '.top-active-card', '.carousel-container',
@@ -32,7 +32,7 @@
             var outer = document.createElement('span');
             outer.className = 'rv-word';
             var inner = document.createElement('span');
-            inner.style.transitionDelay = (i * 70) + 'ms';
+            inner.style.transitionDelay = (i * 130) + 'ms';
             inner.textContent = w;
             outer.appendChild(inner);
             el.appendChild(outer);
@@ -59,7 +59,7 @@
                 return c.matches(BLOCK_SEL);
             }) : [];
             var idx = Math.max(0, siblings.indexOf(el));
-            el.style.setProperty('--rv-delay', Math.min(idx, 8) * 80 + 'ms');
+            el.style.setProperty('--rv-delay', Math.min(idx, 8) * 170 + 'ms');
             el.classList.add('rv');
             io.observe(el);
         });
